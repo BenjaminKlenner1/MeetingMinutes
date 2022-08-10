@@ -14,18 +14,22 @@ def home():
         info = request.form.get('info')
         act_by = request.form.get('act_by')
         act_req = request.form.get('act_req')
+        meeting_id = request.form.get('meeting_id')
 
         if len(subject) < 1:
             flash('Minute is too short', category='error')
         else:
-            new_minute = Minute(subject=subject, user_id=current_user.id, person=person, info=info, act_by=act_by, act_req=act_req)
+            new_minute = Minute(subject=subject, user_id=current_user.id, person=person, info=info, act_by=act_by, act_req=act_req, meeting_id=meeting_id)
             db.session.add(new_minute)
             db.session.commit()
             flash('Minute submitted!', category="success")
+    else:
+        meeting_id = 1
 
-    return render_template("home.html", user=current_user)
 
-@views.route('/delte-minute', methods=['POST'])
+    return render_template("home.html", user=current_user, meeting=meeting_id)
+
+@views.route('/delete-minute', methods=['POST'])
 def delete_minute():
     minute = json.loads(request.data)
     minuteId = minute['minuteId']

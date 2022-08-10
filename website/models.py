@@ -11,10 +11,19 @@ class Minute(db.Model):
     act_by = db.Column(db.String(32))
     act_req = db.Column(db.String(10000))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    meeting_id = db.Column(db.Integer, db.ForeignKey('meeting.id'))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
+    minutes = db.relationship('Minute')
+
+class Meeting(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime(timezone=True), default=func.now())
+    attendees = db.Column(db.String(10000))
+    info = db.Column(db.String(10000))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     minutes = db.relationship('Minute')
