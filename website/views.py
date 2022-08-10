@@ -5,17 +5,20 @@ from . import db
 import json
 
 views = Blueprint('views', __name__)
-
 @views.route('/', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def home():
     if request.method == 'POST':
-        minute = request.form.get('minute')
+        subject = request.form.get('subject')
+        person = request.form.get('person')
+        info = request.form.get('info')
+        act_by = request.form.get('act_by')
+        act_req = request.form.get('act_req')
 
-        if len(minute) < 1:
+        if len(subject) < 1:
             flash('Minute is too short', category='error')
         else:
-            new_minute = Minute(data=minute, user_id=current_user.id)
+            new_minute = Minute(subject=subject, user_id=current_user.id, person=person, info=info, act_by=act_by, act_req=act_req)
             db.session.add(new_minute)
             db.session.commit()
             flash('Minute submitted!', category="success")

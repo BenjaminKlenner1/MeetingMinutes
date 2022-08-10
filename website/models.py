@@ -4,8 +4,12 @@ from sqlalchemy.sql import func
 
 class Minute(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.String(10000))
+    subject = db.Column(db.String(32))
+    person = db.Column(db.String(32))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
+    info = db.Column(db.String(10000))
+    act_by = db.Column(db.String(32))
+    act_req = db.Column(db.String(10000))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class User(db.Model, UserMixin):

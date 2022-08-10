@@ -1,0 +1,37 @@
+/*not linked*/
+
+
+.form {
+    text-align:center;
+}
+  
+.form * {
+    text-align:left;
+}
+  
+.form-item {
+    display:inline-block;
+}
+  
+.form-item p {
+    text-align:center;
+}
+
+.minute {
+    display:inline-block; 
+    width: 180px;
+    border-color: black;
+    border-width: 0px 1px;
+    border-style: solid;
+    margin: 0px 5px;
+    padding: 0px 10px;
+} 
+
+.minutes {
+    text-align:center;
+}
+
+.date {
+    padding-bottom: 10px;
+}
+

@@ -4,7 +4,28 @@
 <h1 align="center">Minutes:</h1>
 <ul class="list-group list-group-flush" id="minutes">
     {% for minute in user.minutes %}
-    <li class="list-group-item">{{ minute.data }}
+    <li class="list-group-item">
+        <div class="minutes">
+            <div class="date">
+                <b>{{ minute.date }}</b>
+                <br />
+            </div>
+            <div class="minute">
+                {{ minute.subject }}
+            </div>
+            <div class="minute">
+                {{ minute.person }}
+            </div>
+            <div class="minute">
+                {{ minute.info }}
+            </div>
+            <div class="minute">
+                {{ minute.act_by }}
+            </div>
+            <div class="minute">
+                {{ minute.act_req }}
+            </div>
+        </div>
         <button type="button" class="close" onClick="deleteMinute({{ minute.id }})">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -12,8 +33,33 @@
     {% endfor %}
 </ul>
 
+
+
+
 <form method="POST">
-    <textarea name="minute" id="minute" class="form-control"></textarea>
+    <br />
+    <div class="form" style="text-align:center;">
+        <div class="form-item" style="display:inline-block;">
+            <p>Subject:</p>
+            <textarea name="subject" id="subject" class="form-control"></textarea>
+        </div>
+        <div class="form-item" style="display:inline-block;">
+            <p>Person:</p>
+            <textarea name="person" id="person" class="form-control"></textarea>
+        </div>
+        <div class="form-item" style="display:inline-block;">
+            <p>Info:</p>
+            <textarea name="info" id="info" class="form-control"></textarea>
+        </div>
+        <div class="form-item" style="display:inline-block;">
+            <p>To be actioned by:</p>
+            <textarea name="act_by" id="act_by" class="form-control"></textarea>
+        </div> 
+        <div class="form-item" style="display:inline-block;">
+            <p>Actions required:</p>
+            <textarea name="act_req" id="act_req" class="form-control"></textarea>
+        </div>
+    </div>
     <br />
     <div align="center">
         <button type="submit" class="btn btn-primary">Add Minute</button>
