@@ -10,16 +10,10 @@
             {% for meeting in user.meetings %}
             <div class="meetings">
                 <div class="nav-item nav-link" style="display:block">
-                    <a>{{ meeting.name }}</a>
+                    <a onClick="selectMeeting({{ meeting.id }})">{{ meeting.name }}</a>
                 </div>
             </div>
             {% endfor %}
-            <div class="meetings">
-                <div class="nav-item nav-link" style="display:block">
-                    <a>Tester</a>
-                </div>
-            </div>
-            
         </div>
     
         <form name="meetings" id="meetings" method="POST">
@@ -31,36 +25,63 @@
     </div>
 </nav>
 
+<div class="meeting">
+    <form>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="meeting-bar">
+                    <div>
+                        <div class="meeting-date meeting-item">{{ meeting.date }}</div>
+                    </div>
+                        <textarea class="meeting-name meeting-item h1">{{ meeting.name }}</textarea>
+                    <br />
+                    <p class="meeting-item meeting-label">Attendees:</p>
+                    <p class="meeting-item meeting-label">Additional info:</p>
+                    <br />
+                    <textarea class="meeting-attendees meeting-item">{{ meeting.attendees }}</textarea>
+                    <textarea class="meeting-info meeting-item">{{ meeting.info }}</textarea>
+                </div>
+                <br />
+                <div align="center">
+                    <button type="submit" name="button" id="button" value="submit-edit" class="btn btn-secondary meeting-btn">Submit Edit</button>
+                    <button type="submit" name="button" id="button" value="delete-meeting" class="btn btn-danger meeting-btn">Delete Meeting</button>
+                </div>
+                
+            </li>
+        </ul>
+    </form>
+</div>
+
+
+
 <h1 align="center">Minutes:</h1>
-<ul class="list-group list-group-flush" id="minutes">
+<ul class="list-group list-group-flush">
     {% for minute in user.minutes %}
+    {% if minute.meeting_id == meeting %}
     <li class="list-group-item">
         <div class="minutes">
-            <div class="date">
-                <b>{{ minute.date }}</b>
-                <br />
-            </div>
-            <div class="minute">
+            <div class="minute-item">
                 {{ minute.subject }}
             </div>
-            <div class="minute">
+            <div class="minute-item">
                 {{ minute.person }}
             </div>
-            <div class="minute">
+            <div class="minute-item">
                 {{ minute.info }}
             </div>
-            <div class="minute">
+            <div class="minute-item">
                 {{ minute.act_by }}
             </div>
-            <div class="minute">
+            <div class="minute-item">
                 {{ minute.act_req }}
-                {{ minute.meeting_id}}
             </div>
             <button type="button" class="close" onClick="deleteMinute({{ minute.id }})">
                 <span aria-hidden="true">&times;</span>
             </button>
+            <p style="margin:0px;">(debug) Meeting: {{ minute.meeting_id}}</p>
         </div>
     </li>
+    {% endif %}
     {% endfor %}
 </ul>
 
@@ -87,11 +108,10 @@
             <p>Actions required:</p>
             <textarea name="act_req" id="act_req" class="form-control"></textarea>
         </div>
-        <textarea name="meeting_id" id="meeting_id"></textarea>
     </div>
     <br />
     <div align="center">
-        <button type="submit" name="button" id="button" value="minute" class="btn btn-primary">Add Minute</button>
+        <button type="submit" name="button" id="button" value="minute" class="btn btn-secondary">Add Minute</button>
     </div>
 </form>
 {% endblock %}

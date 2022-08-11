@@ -17,7 +17,7 @@
     text-align:center;
 }
 
-.minute {
+.minute-item {
     display:inline-block; 
     width: 180px;
     border-color: black;
@@ -27,11 +27,32 @@
     padding: 0px 10px;
 } 
 
+.meeting-item {
+    display:inline-block; 
+    width: 300px;
+    border-width: 0px 0px;
+    margin: 0px 5px;
+    padding: 0px 10px;
+    resize: none;
+    text-align: center;
+} 
+
 .minutes {
     text-align:center;
 }
 
-.date {
-    padding-bottom: 10px;
+.meeting-bar {
+    text-align:center;
 }
 
+.meeting-label, .meeting-date {
+    font-weight: 700;
+}
+
+.meeting-btn {
+    width: 140px;
+}
+
+.meeting-name {
+    width: 400px;
+}
