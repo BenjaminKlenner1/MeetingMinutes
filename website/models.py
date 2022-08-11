@@ -19,9 +19,11 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     minutes = db.relationship('Minute')
+    meetings = db.relationship('Meeting')
 
 class Meeting(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(32))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     attendees = db.Column(db.String(10000))
     info = db.Column(db.String(10000))
