@@ -11,7 +11,6 @@ views = Blueprint('views', __name__)
 def home():
     #set meeting_id to id selected in second navabar
     meeting_id = 1
-
     if request.method == 'POST':
         if request.form.get('button') == "minute":
             subject = request.form.get('subject')
@@ -42,8 +41,22 @@ def home():
                 db.session.commit()
 
         elif request.form.get('button') == "submit-edit":
-            #submit edit for meeting fields
-            pass
+            #This needs to be selected by meetings navbar
+            selected_meeting = "1"
+            name = request.form.get('meeting_name')
+            attendees = request.form.get('attendees')
+            info = request.form.get('meeting_info')
+
+            if len(name) < 1:
+                flash('Meeting name is too short', category='error')
+                pass
+            else:
+                meeting = Meeting.query.filter_by(id=selected_meeting).first()
+                meeting.name = name
+                meeting.attendees = attendees
+                meeting.info = info
+                db.session.commit()
+
 
         elif request.form.get('button') == "delete-meeting":
             #delete meeting and matching minutes
@@ -53,7 +66,6 @@ def home():
             flash('Fail', category="error")
 
         
-
 
     return render_template("home.html", user=current_user, meeting=meeting_id)
 

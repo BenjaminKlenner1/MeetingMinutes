@@ -26,27 +26,27 @@
 </nav>
 
 <div class="meeting">
-    <form>
+    <form method="POST">
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
+                <!--If I wrap this in a python statement it works-->
                 <div class="meeting-bar">
                     <div>
                         <div class="meeting-date meeting-item">{{ meeting.date }}</div>
                     </div>
-                        <textarea class="meeting-name meeting-item h1">{{ meeting.name }}</textarea>
+                        <textarea class="meeting-name meeting-item h1" name="meeting_name" id="meeting_name">{{ meeting.name }}</textarea>
                     <br />
                     <p class="meeting-item meeting-label">Attendees:</p>
                     <p class="meeting-item meeting-label">Additional info:</p>
                     <br />
-                    <textarea class="meeting-attendees meeting-item">{{ meeting.attendees }}</textarea>
-                    <textarea class="meeting-info meeting-item">{{ meeting.info }}</textarea>
+                    <textarea class="meeting-attendees meeting-item" name="attendees" id="attendees">{{ meeting.attendees }}</textarea>
+                    <textarea class="meeting-info meeting-item" name="meeting_info" id="meeting_info">{{ meeting.info }}</textarea>
                 </div>
                 <br />
                 <div align="center">
                     <button type="submit" name="button" id="button" value="submit-edit" class="btn btn-secondary meeting-btn">Submit Edit</button>
                     <button type="submit" name="button" id="button" value="delete-meeting" class="btn btn-danger meeting-btn">Delete Meeting</button>
                 </div>
-                
             </li>
         </ul>
     </form>
