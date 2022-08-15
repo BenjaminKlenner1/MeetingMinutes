@@ -1,67 +1,16 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
-        <span class="navbar-toggler-icon"></span> 
-    </button>
-    <div class="collapse navbar-collapse" id="navbar">
-        <div class = "navbar-nav">
-            {% for meeting in user.meetings %}
-            <div class="meetings">
-                <div class="nav-item nav-link" style="display:block">
-                    <a onClick="selectMeeting({{ meeting.id }})">{{ meeting.name }}</a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    
-        <form name="meetings" id="meetings" method="POST">
-            <div align="center">
-                <button type="submit" name="button" id="button" value="meeting" class="btn btn-secondary">Add Meeting</button>
-            </div>
-        </form>
-    
-    </div>
-</nav>
-
-<div class="meeting">
-    <form method="POST">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <!--If I wrap this in a python statement it works-->
-                <div class="meeting-bar">
-                    <div>
-                        <div class="meeting-date meeting-item">{{ meeting.date }}</div>
-                    </div>
-                        <textarea class="meeting-name meeting-item h1" name="meeting_name" id="meeting_name">{{ meeting.name }}</textarea>
-                    <br />
-                    <p class="meeting-item meeting-label">Attendees:</p>
-                    <p class="meeting-item meeting-label">Additional info:</p>
-                    <br />
-                    <textarea class="meeting-attendees meeting-item" name="attendees" id="attendees">{{ meeting.attendees }}</textarea>
-                    <textarea class="meeting-info meeting-item" name="meeting_info" id="meeting_info">{{ meeting.info }}</textarea>
-                </div>
-                <br />
-                <div align="center">
-                    <button type="submit" name="button" id="button" value="submit-edit" class="btn btn-secondary meeting-btn">Submit Edit</button>
-                    <button type="submit" name="button" id="button" value="delete-meeting" class="btn btn-danger meeting-btn">Delete Meeting</button>
-                </div>
-            </li>
-        </ul>
-    </form>
-</div>
-
-
-
 <h1 align="center">Minutes:</h1>
 <ul class="list-group list-group-flush">
     {% for minute in user.minutes %}
-    {% if minute.meeting_id == meeting %}
     <li class="list-group-item">
         <div class="minutes">
             <div class="minute-item">
                 {{ minute.subject }}
+            </div>
+            <div class="minute-item">
+                {{ minute.attendees }}
             </div>
             <div class="minute-item">
                 {{ minute.person }}
@@ -78,10 +27,8 @@
             <button type="button" class="close" onClick="deleteMinute({{ minute.id }})">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <p style="margin:0px;">(debug) Meeting: {{ minute.meeting_id}}</p>
         </div>
     </li>
-    {% endif %}
     {% endfor %}
 </ul>
 
@@ -91,6 +38,10 @@
         <div class="form-item" style="display:inline-block;">
             <p>Subject:</p>
             <textarea name="subject" id="subject" class="form-control"></textarea>
+        </div>
+        <div class="form-item" style="display:inline-block;">
+            <p>Attendees:</p>
+            <textarea name="attendees" id="attendees" class="form-control"></textarea>
         </div>
         <div class="form-item" style="display:inline-block;">
             <p>Person:</p>
