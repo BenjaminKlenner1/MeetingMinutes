@@ -11,7 +11,5 @@ function selectMeeting(meetingId) {
     fetch('/select-meeting', {
         method: 'POST',
         body: JSON.stringify({meetingId: meetingId})
-    }).then((_res) => {
-        window.location.href = "/"
-    });
+    }); 
 }

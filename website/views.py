@@ -9,8 +9,12 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    #set meeting_id to id selected in second navabar
-    meeting_id = 1
+    print("Home")
+
+    meeting_id = request.form.get('currentMeeting')
+    if meeting_id == None or meeting_id == "":
+        meeting_id = Meeting.query.filter_by(user_id=current_user.id).first().id
+
     if request.method == 'POST':
         if request.form.get('button') == "minute":
             subject = request.form.get('subject')
@@ -27,6 +31,7 @@ def home():
                 db.session.add(new_minute)
                 db.session.commit()
                 flash('Minute submitted!', category="success")
+
         elif request.form.get('button') == "meeting":
 
             #check for meetings with default name AND matching user id
@@ -42,7 +47,8 @@ def home():
 
         elif request.form.get('button') == "submit-edit":
             #This needs to be selected by meetings navbar
-            selected_meeting = "1"
+            selected_meeting = meeting
+            print(selected_meeting)
             name = request.form.get('meeting_name')
             attendees = request.form.get('attendees')
             info = request.form.get('meeting_info')
