@@ -5,7 +5,10 @@
 <ul class="list-group list-group-flush">
     {% for minute in user.minutes %}
     <li class="list-group-item">
+        
         <div class="minutes">
+            <b>{{ minute.date }}</b>
+            <br />
             <div class="minute-item">
                 {{ minute.subject }}
             </div>
